@@ -15,7 +15,9 @@ public interface SubscriptionsService {
 	Subscriptions findByPartyId(Long partyId);
 	
 	Subscriptions register(Subscriptions subscriptions);
-	Subscriptions update(Long id, Subscriptions subscriptions);
-
-	void delete(Long id);
+	/*
+	 * Subscriptions update(Long id, Subscriptions subscriptions);
+	 * 
+	 * void delete(Long id);
+	 */
 }

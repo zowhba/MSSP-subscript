@@ -48,21 +48,18 @@ public class SubscriptionsLogic implements SubscriptionsService {
 		return subscriptionsRepository.save(subscriptions);
 	}
 
-	@Override
-	@Transactional
-	public Subscriptions update(Long id, Subscriptions newSubscriptions) {
-		Subscriptions oldSubscriptions = subscriptionsRepository.findOne(id);
-		if(oldSubscriptions != null) {
-			BeanUtils.copyProperties(newSubscriptions,  oldSubscriptions, "id");
-			return subscriptionsRepository.save(oldSubscriptions);
-		} else {
-			return null;
-		}
-	}
-
-	@Override
-	@Transactional
-	public void delete(Long id) {
-		subscriptionsRepository.delete(id);
-	}
+	/*
+	 * @Override
+	 * 
+	 * @Transactional public Subscriptions update(Long id, Subscriptions
+	 * newSubscriptions) { Subscriptions oldSubscriptions =
+	 * subscriptionsRepository.findOne(id); if(oldSubscriptions != null) {
+	 * BeanUtils.copyProperties(newSubscriptions, oldSubscriptions, "id"); return
+	 * subscriptionsRepository.save(oldSubscriptions); } else { return null; } }
+	 * 
+	 * @Override
+	 * 
+	 * @Transactional public void delete(Long id) {
+	 * subscriptionsRepository.delete(id); }
+	 */
 }

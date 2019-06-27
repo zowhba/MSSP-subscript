@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sk.sample.mssp.subscriptions.domain.model.Subscriptions;
 import com.sk.sample.mssp.subscriptions.domain.service.SubscriptionsService;
 
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/v1/subscriptions")
 public class SubscriptionsRestController implements SubscriptionsService {
@@ -25,42 +29,59 @@ public class SubscriptionsRestController implements SubscriptionsService {
 	private SubscriptionsService subscriptionsService;
 
 	@Override
+	@ApiOperation(value = "모든 구독 요청 정보 조회")
 	@GetMapping
 	public List<Subscriptions> findAll() {
 		return subscriptionsService.findAll(); 
 	}
 	
 	@Override
+	@ApiOperation(value = "특정 구독 요청 정보 조회")
+	@ApiImplicitParams({
+        @ApiImplicitParam(name = "id", value = "구독 요청 고유키", required = true, dataType = "Long", paramType = "path"),
+    })
 	@GetMapping("/{id}")
 	public Subscriptions findById(@PathVariable("id") Long id) {
 		return subscriptionsService.findById(id);
 	}
 
 	@Override
+	@ApiOperation(value = "구독 요청 등록")
+	@ApiImplicitParams({
+        @ApiImplicitParam(name = "partyId", value = "파티고유키", required = true, dataType = "Long", paramType = "path"),
+        @ApiImplicitParam(name = "ottId", value = "Ott 구독 ID", required = true, dataType = "String", paramType = "path"),
+        @ApiImplicitParam(name = "subscriptionsName", value = "Ott명", required = true, dataType = "String", paramType = "path"),
+    })
 	@PostMapping
 	public Subscriptions register(@RequestBody Subscriptions subscriptions) {
 		return subscriptionsService.register(subscriptions);
 	}
 
-	@Override
-	@PutMapping("/{id}")
-	public Subscriptions update(@PathVariable("id") Long id, @RequestBody Subscriptions subscriptions) {
-		return subscriptionsService.update(id, subscriptions);
-	}
-
-	@Override
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") Long id) {
-		subscriptionsService.delete(id);
-	}
+	/*
+	 * @Override
+	 * 
+	 * @PutMapping("/{id}") public Subscriptions update(@PathVariable("id") Long
+	 * id, @RequestBody Subscriptions subscriptions) { return
+	 * subscriptionsService.update(id, subscriptions); }
+	 * 
+	 * @Override
+	 * 
+	 * @DeleteMapping("/{id}") public void delete(@PathVariable("id") Long id) {
+	 * subscriptionsService.delete(id); }
+	 */
 	
 	@Override
+	@ApiOperation(value = "특정 파티의 구독 요청 정보 조회")
+	@ApiImplicitParams({
+        @ApiImplicitParam(name = "partyId", value = "파티 고유키", required = true, dataType = "Long", paramType = "path"),
+    })
 	@GetMapping("/search/partyId")
 	public Subscriptions findByPartyId(@RequestParam("partyId") Long partyId) {
 		return subscriptionsService.findByPartyId(partyId);
 	}
 
 	@Override
+	@ApiOperation(value = "모든 구독 요청 정보 조회")
 	//@GetMapping
 	public Page<Subscriptions> findAll(Pageable pageable) {
 		return subscriptionsService.findAll(pageable); 
