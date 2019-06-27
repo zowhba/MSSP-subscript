@@ -37,9 +37,6 @@ public class SubscriptionsRestController implements SubscriptionsService {
 	
 	@Override
 	@ApiOperation(value = "특정 구독 요청 정보 조회")
-	@ApiImplicitParams({
-        @ApiImplicitParam(name = "id", value = "구독 요청 고유키", required = true, dataType = "Long", paramType = "path"),
-    })
 	@GetMapping("/{id}")
 	public Subscriptions findById(@PathVariable("id") Long id) {
 		return subscriptionsService.findById(id);
@@ -47,11 +44,6 @@ public class SubscriptionsRestController implements SubscriptionsService {
 
 	@Override
 	@ApiOperation(value = "구독 요청 등록")
-	@ApiImplicitParams({
-        @ApiImplicitParam(name = "partyId", value = "파티고유키", required = true, dataType = "Long", paramType = "path"),
-        @ApiImplicitParam(name = "ottId", value = "Ott 구독 ID", required = true, dataType = "String", paramType = "path"),
-        @ApiImplicitParam(name = "subscriptionsName", value = "Ott명", required = true, dataType = "String", paramType = "path"),
-    })
 	@PostMapping
 	public Subscriptions register(@RequestBody Subscriptions subscriptions) {
 		return subscriptionsService.register(subscriptions);
@@ -72,9 +64,6 @@ public class SubscriptionsRestController implements SubscriptionsService {
 	
 	@Override
 	@ApiOperation(value = "특정 파티의 구독 요청 정보 조회")
-	@ApiImplicitParams({
-        @ApiImplicitParam(name = "partyId", value = "파티 고유키", required = true, dataType = "Long", paramType = "path"),
-    })
 	@GetMapping("/search/partyId")
 	public Subscriptions findByPartyId(@RequestParam("partyId") Long partyId) {
 		return subscriptionsService.findByPartyId(partyId);
